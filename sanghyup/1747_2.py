@@ -20,7 +20,7 @@ def makePalindrome(num=int): # 팰린드롬 수를 만들어주는 함수
         palindrome += half[::-1]
     return int(palindrome)
 
-def getNextPalindrome(num=int):
+def getNextPalindrome(num=int): #다음 팰린드롬 수를 만들어주는 함수
     num = str(num)
     strlenght = len(num)
     half = num[0:math.ceil(strlenght/2)] # 입력값의 절반 홀수일 경우 중간 값 포함 #num은 string임
@@ -52,5 +52,6 @@ palindrome = makePalindrome(N)
 while palindrome < N or isPrime(palindrome) == False:
     palindrome = getNextPalindrome(palindrome)
 print (palindrome)
+
 
 
