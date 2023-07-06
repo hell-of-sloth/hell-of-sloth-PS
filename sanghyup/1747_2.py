@@ -48,7 +48,7 @@ def getNextPalindrome(num=int):
 N = int(sys.stdin.readline())
 palindrome = makePalindrome(N)
 while palindrome < N or isPrime(palindrome) == False:
-    palindrome = getNextPalindrome(N)
+    palindrome = getNextPalindrome(palindrome)
 print (palindrome)
 
 
