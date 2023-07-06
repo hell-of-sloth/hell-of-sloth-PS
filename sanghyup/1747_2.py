@@ -40,7 +40,10 @@ def getNextPalindrome(num=int):
             half = str(int(half)+1)
             palindrome = half
             palindrome += half[-2::-1]
-
+        else: # 짝수일 경우
+            half = str(int(half)+1)
+            palindrome = half
+            palindrome += half[::-1]
     return int(palindrome)
 
 
