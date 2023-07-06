@@ -1,9 +1,7 @@
 import sys
 import math
 
-temp =0
-
-def isPrimeFunc(num =int): # 소수인지 판별해주는 함수
+def isPrime(num =int): # 소수인지 판별해주는 함수
     for i in range(2, int(math.sqrt(num))+1):
         if num % i == 0:
             return False
@@ -48,7 +46,9 @@ def getNextPalindrome(num=int):
 
 
 N = int(sys.stdin.readline())
-print(makePalindrome(N))
-print(getNextPalindrome(N))
+palindrome = makePalindrome(N)
+while palindrome < N or isPrime(palindrome) == False:
+    palindrome = getNextPalindrome(N)
+print (palindrome)
 
 
