@@ -2,6 +2,8 @@ import sys
 import math
 
 def isPrime(num =int): # 소수인지 판별해주는 함수
+    if num == 1:
+        return False
     for i in range(2, int(math.sqrt(num))+1):
         if num % i == 0:
             return False
