@@ -1,20 +1,15 @@
 import sys
-from collections import deque
+import heapq
 
 n = int(sys.stdin.readline())
 stacks = []
 
 for _ in range(n):
-    stacks.append(int(sys.stdin.readline()))
-
-stacks = sorted(stacks)
+    heapq.heappush(stacks, int(sys.stdin.readline()))
 answer = 0
 while len(stacks)>1:
-    temp = stacks[0]+stacks[1]
+    temp = heapq.heappop(stacks)+heapq.heappop(stacks)
     answer+=temp
-    del stacks[0]
-    del stacks[0]
-    stacks.append(temp)
-    sorted(stacks)
+    heapq.heappush(stacks, temp)
 
 print(answer)
