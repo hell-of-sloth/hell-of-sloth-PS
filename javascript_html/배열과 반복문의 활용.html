@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>배열과 반복문의 활용</title>
+    <style>
+        /* class : . */
+        .js{
+            font-weight: bold;
+            color: red;
+        }
+
+        /* id : # */
+        #first{
+            font-weight: bold;
+            color: green;
+        }
+
+        /* tag : 아무것도 안 붙이기 */
+        span{
+            font-weight: bold;
+            color: blue;
+        } 
+    </style>
+</head>
+<body style="background-color: white; color:black">
+    <h1>WEB</h1>
+
+    <ol>
+        <li><a href="리펙토링.html">html</a></li>
+        <li><a href="배열.html">배열</a></li>
+        <li><a href="반복문.html">반복문</a></li>
+    </ol>
+
+    <h2 style="color:powderblue;background-color:coral">Javascript</h2>
+    
+    <!-- querySelector: 제어할 태그를 선택하는 명령어-->
+    <!-- style: style 뒤의 값으로 태그의 속성을 변경-->
+    <input id="night_day" type="button" value="night" onclick="
+
+        var target = document.querySelector('body');
+        var list = document.querySelectorAll('a')
+        // 변수를 이용하여 코드를 간결하게 만들 수 있다.
+        
+        if (this.value === 'night'){
+            target.style.backgroundColor = 'black';
+            target.style.color = 'white';
+            this.value = 'day';
+            for (var i = 0; i < list.length; i++){
+                list[i].style.color = 'powderblue';
+            }
+        } else {
+            target.style.backgroundColor = 'white';
+            target.style.color = 'black';
+            this.value = 'night';
+            for (var i = 0; i < list.length; i++){
+                list[i].style.color = 'blue';
+            }
+        }
+    ">
+
+    <p>
+        <div style="font-weight: bold;">친구는 세월의 도둑이다.</div>
+        <!-- div:줄바꿈이 되는 아무의미 없는 태그-->
+        <span id="first" class="js">친구는 세월의 도둑이다.</span>
+        <!-- span:줄바꿈이 안되는 아무의미 없는 태그-->
+        봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
+        마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
+        <span>불행했을 때 만난 친구는 가장 소중히 여겨야 한다.</span>
+        행복했을 때 함께 기쁨을 누리는 친구보다
+        힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
+        부유했을 때는 친구를 사귀기 쉽지만,
+        어려울 때는 눈을 씻고 찾아봐도 친구를 찾기 어렵다.
+        누군가 진정한 우정을 나누고 있다 할지라도 그 우정을 지키려면 오랜 시간이 걸린다.
+        짧은 시간 안에 많은 친구를 얻기란 불가능하다. 왜냐하면
+        그들은 진정한 친구가 아니기 때문이다.
+        친구란 말하자면 또 하나의 자신이다.
+        현명한 사람과 어리석은 사람은 서로 어울리지 않는다.
+        <span class="js">[출처] 좋은 긴글 모음(우정,용서,침묵,충고) |작성자 평화둥이</span>
+    </p>
+    <input id="night_day" type="button" value="night" onclick="
+        // this : 이벤트가 발생한 태그를 가리킨다.
+        if (this.value === 'night'){
+            document.querySelector('body').style.backgroundColor = 'black';
+            document.querySelector('body').style.color = 'white';
+            this.value = 'day';
+        } else {
+            document.querySelector('body').style.backgroundColor = 'white';
+            document.querySelector('body').style.color = 'black';
+            this.value = 'night';
+        }
+    ">
+</body>
+</html>
