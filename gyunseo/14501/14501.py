@@ -2,7 +2,7 @@ import sys
 import math
 
 sys.setrecursionlimit(10**9)
-# sys.stdin = open("input.txt", "r")
+sys.stdin = open("input.txt", "r")
 input = sys.stdin.readline
 print = sys.stdout.write
 
@@ -10,7 +10,7 @@ N = int(input().rstrip())
 counsel_schedules = [tuple(map(int, input().rstrip().split())) for _ in range(N)] + [
     (math.inf, 0)
 ]
-# print(f"{counsel_schedules}\n")
+
 ans = 0
 # 시작 일자 brute force
 for i in range(N):
