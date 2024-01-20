@@ -13,7 +13,7 @@ int matrix[MAX][MAX], is_visited[MAX][MAX];
 // 상하좌우
 int di[4] = {-1, +1, 0, 0}, dj[4] = {0, 0, -1, +1};
 int ans_cnt, ans_area;
-queue<pair<int, int> > q;
+queue<pair<int, int>> q;
 void readUserInput()
 {
     cin >> n >> m;
