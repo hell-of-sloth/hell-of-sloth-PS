@@ -2,35 +2,27 @@
 using namespace std;
 
 int main() {
-  // ios::sync_with_stdio(0);
-  // cin.tie(0);
-
-  string init;
   int N;
-  cin >> init;
   cin >> N;
 
-  list<char> editor;
-  for (auto c : init) {
-    editor.push_back(c);
-  }
-  auto it = editor.end();
-
-  char op, key;
+  string input;
   while (N--) {
-    cin >> op;
-    if (op == 'L' && it != editor.begin())
-      it--;
-    else if (op == 'D' && it != editor.end())
-      it++;
-    else if (op == 'B') {
-      if (it == editor.begin()) continue;
-      it = editor.erase(--it);
-    } else if (op == 'P') {
-      cin >> key;
-      editor.insert(it, key);
-    }
-  }
+    cin >> input;
+    list<char> output;
+    auto it = output.begin();
 
-  for (auto c : editor) cout << c;
+    for (auto c : input) {
+      if (c == '<' && it != output.begin()) {
+        it--;
+      } else if (c == '>' && it != output.end()) {
+        it++;
+      } else if (c == '-' && it != output.begin())
+        it = output.erase(--it);
+      else if (c != '<' && c != '>' && c != '-') {
+        output.insert(it, c);
+      }
+    }
+    for (auto c : output) cout << c;
+    cout << '\n';
+  }
 }
