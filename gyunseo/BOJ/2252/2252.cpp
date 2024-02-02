@@ -1,6 +1,6 @@
 #include <iostream>
-#include <vector>
 #include <queue>
+#include <vector>
 #define endl '\n'
 using namespace std;
 const int MAX = 32000;
@@ -10,8 +10,8 @@ int indegree[MAX + 1];
 queue<int> q;
 void solve() {
     for (int i = 1; i <= N; i++) {
-       if (indegree[i] == 0) {
-            q.push(i); 
+         if (indegree[i] == 0) {
+            q.push(i);
             continue;
         }
     }
