@@ -24,6 +24,7 @@ bool is_in_diagonal_path(int cur_col, int cur_row) {
     }
     return false;
 }
+
 void dfs(int col, int row) {
     if (row == N - 1) {
         ans++;
