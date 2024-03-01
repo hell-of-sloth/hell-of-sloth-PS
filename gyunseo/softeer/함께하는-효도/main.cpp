@@ -37,11 +37,11 @@ void update_dist(int si, int sj, int dirs) {
 
     is_visited[ci][cj]++;
     for (int i = 0; i < 3; i++) {
-        int dir = dirs % NUM_DIR;
+        int cur_dir = dirs % NUM_DIR;
         dirs /= NUM_DIR;
         int ni, nj;
-        ni = ci + di[dir];
-        nj = cj + dj[dir];
+        ni = ci + di[cur_dir];
+        nj = cj + dj[cur_dir];
         if (OOB(ni, nj))
             continue;
         is_visited[ni][nj]++;
@@ -61,6 +61,7 @@ int get_ans() {
     return tmp_ans;
 }
 
+// for debugging
 void print_dist() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
@@ -69,9 +70,9 @@ void print_dist() {
         cout << endl;
     }
 }
+
 void solve() {
     int brutes = get_pow(m);
-    // watch(brutes);
     //  64진법으로 전체 경우의 수를 나타낸다
     for (int brute = 0; brute < brutes; brute++) {
         int tmp_brute = brute;
@@ -86,7 +87,6 @@ void solve() {
             update_dist(start_i, start_j, dirs);
         }
         int tmp_ans = get_ans();
-        // watch(tmp_ans);
         if (tmp_ans > ans)
             ans = tmp_ans;
     }
@@ -99,8 +99,6 @@ void read_user_input() {
             cin >> MATRIX[i][j];
         }
     }
-    fill(&is_visited[0][0],
-         &is_visited[0][0] + sizeof(is_visited) / sizeof(int), 0);
     for (int i = 0; i < m; i++) {
         int ci, cj;
         cin >> ci >> cj;
