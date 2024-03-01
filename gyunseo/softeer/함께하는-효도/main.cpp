@@ -75,7 +75,8 @@ void solve() {
     //  64진법으로 전체 경우의 수를 나타낸다
     for (int brute = 0; brute < brutes; brute++) {
         int tmp_brute = brute;
-        fill(&is_visited[0][0], &is_visited[0][0] + sizeof(is_visited) / sizeof(int), 0);
+        fill(&is_visited[0][0],
+             &is_visited[0][0] + sizeof(is_visited) / sizeof(int), 0);
 
         for (auto &cur_pos : start_poses) {
             int dirs = tmp_brute % 64;
@@ -98,7 +99,8 @@ void read_user_input() {
             cin >> MATRIX[i][j];
         }
     }
-    fill(&is_visited[0][0], &is_visited[0][0] + sizeof(is_visited) / sizeof(int), 0);
+    fill(&is_visited[0][0],
+         &is_visited[0][0] + sizeof(is_visited) / sizeof(int), 0);
     for (int i = 0; i < m; i++) {
         int ci, cj;
         cin >> ci >> cj;
