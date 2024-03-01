@@ -1,99 +1,102 @@
+#include <cassert>
 #include <iostream>
-#include <utility>
-// due to tie
-#include <tuple>
 #include <queue>
-#include <vector>
+#include <tuple>
+#define endl '\n'
+#define ASSERT(exp, msg) assert(exp &&msg)
 using namespace std;
-const int MAX = 1000;
-int R, C;
-string board[MAX + 10];
-int exit_time[MAX + 10][MAX + 10];
-queue<pair<int, int>> q;
-pair<int, int> jihun_pos;
-vector<pair<int, int>> fire_poses;
-int di[4] = {-1, 1, 0, 0}, dj[4] = {0, 0, -1, 1};
-bool did_escape = false;
 
-bool OOB(int i, int j) {
-    if (i < 0 || i >= R) return true;
-    if (j < 0 || j >= C) return true;
+const int MAX = 1000, NUM_DIR = 4, WALL = MAX * MAX + 1;
+int MATRIX[MAX][MAX], dist1[MAX][MAX], dist2[MAX][MAX];
+int R, C;
+int di[NUM_DIR] = {-1, 0, 1, 0}, dj[NUM_DIR] = {0, 1, 0, -1};
+queue<pair<int, int>> Q1, Q2;
+
+bool OOB(int ci, int cj) {
+    if (ci < 0 || ci >= R)
+        return true;
+    if (cj < 0 || cj >= C)
+        return true;
     return false;
 }
 
-void bfs() {
-    q.push(jihun_pos); 
-    exit_time[jihun_pos.first][jihun_pos.second] = 1;
-    for (auto &fire_pos : fire_poses) {
-        q.push(fire_pos);
-        exit_time[fire_pos.first][fire_pos.second] = (int)1e6 + 10;
-    }
-    int ci, cj;
-    int ni, nj;
-    while (!q.empty()) {
-        tie(ci, cj) = q.front(); 
-        q.pop();
-        for (int k = 0; k < 4; k++) {
+void solve() {
+
+    // 불이 퍼지는 BFS를 먼저 실행
+    while (!Q1.empty()) {
+        int ci, cj;
+        tie(ci, cj) = Q1.front();
+        Q1.pop();
+        for (int k = 0; k < NUM_DIR; k++) {
+            int ni, nj;
             ni = ci + di[k];
             nj = cj + dj[k];
 
-            if (OOB(ni, nj)) {
-                if (exit_time[ci][cj] <= MAX) { 
-                    did_escape = true;
-                    cout << exit_time[ci][cj] << endl;
-                    return;
-                }
-                // 불이 탈출 하는 경우
+            if (dist1[ni][nj] == -1)
                 continue;
-            }
-            if (exit_time[ci][cj] >= (int)1e6) {
-                if (board[ni][nj] == '#') continue;
-                if (exit_time[ni][nj] >= (int)1e6) continue;
-                exit_time[ni][nj] = exit_time[ci][cj] + 1;
-            }
-            else {
-                if (board[ni][nj] == '#') continue;
-                if (board[ni][nj] == 'F') continue;
-                if (exit_time[ni][nj] != 0) continue;
-                exit_time[ni][nj] = exit_time[ci][cj] + 1;
-            }
-            q.push({ni, nj});
+            if (OOB(ni, nj))
+                continue;
+            if (dist1[ni][nj] >= 1)
+                continue;
+            dist1[ni][nj] = dist1[ci][cj] + 1;
+            Q1.push({ni, nj});
         }
     }
-}
-
-void solve() {
-    bfs();
-    //for (int i = 0; i < R; i++) {
-        //for (int j = 0; j < C; j++) {
-            //cout << exit_time[i][j] << " ";
-        //}
-        //cout << endl;
-    //}
-    if (did_escape == false) {
-        cout << "IMPOSSIBLE" << endl;
+    // 불이 퍼진 시각을 보면서 불에 데이는지 안 데이는지 확인한다
+    while (!Q2.empty()) {
+        int ci, cj;
+        tie(ci, cj) = Q2.front();
+        Q2.pop();
+        for (int k = 0; k < NUM_DIR; k++) {
+            int ni, nj;
+            ni = ci + di[k];
+            nj = cj + dj[k];
+            // 벽이나 이미 간 곳은 못 간다
+            if (dist2[ni][nj] == -1)
+                continue;
+            if (dist2[ni][nj] >= 1)
+                continue;
+            // 탈출하면
+            if (OOB(ni, nj)) {
+                cout << dist2[ci][cj] << endl;
+                return;
+            }
+            // 불이 이미 퍼진 곳이라면
+            if (dist1[ni][nj] > 0 && dist1[ni][nj] <= dist2[ci][cj] + 1) {
+                continue;
+            }
+            dist2[ni][nj] = dist2[ci][cj] + 1;
+            Q2.push({ni, nj});
+        }
     }
+    // 여기까지 온 것은 탈출에 실패한 것을 의미함
+    cout << "IMPOSSIBLE" << endl;
 }
 
 void read_user_input() {
     cin >> R >> C;
     cin.ignore();
     for (int i = 0; i < R; i++) {
-        getline(cin, board[i]);
-        //cout << board[i] << endl;
+        string s;
+        getline(cin, s);
         for (int j = 0; j < C; j++) {
-            if (board[i][j] == 'F') {
-                fire_poses.push_back({i, j});
-            }
-            else if (board[i][j] == 'J') {
-               jihun_pos = {i, j}; 
+            if (s[j] == '#') {
+                dist1[i][j] = -1;
+                dist2[i][j] = -1;
+            } else if (s[j] == 'F') {
+                dist1[i][j] = 1;
+                Q1.push({i, j});
+            } else if (s[j] == 'J') {
+                dist2[i][j] = 1;
+                Q2.push({i, j});
             }
         }
     }
 }
-
 int main() {
-    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
     read_user_input();
     solve();
     return 0;
