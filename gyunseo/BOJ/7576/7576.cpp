@@ -1,78 +1,90 @@
+#include <cassert>
 #include <iostream>
-#include <vector>
 #include <queue>
 #include <tuple>
-#include <algorithm>
 #define endl '\n'
+#define F first
+#define S second
+#define ASSERT(exp, msg) assert(exp &&msg);
+
 using namespace std;
 
-const int MAX = 1000;
-int M, N, tomato_cnt = 0, ans = -1;
-int board[MAX][MAX], ripen_date[MAX][MAX];
-int di[4] = {-1, 1, 0, 0}, dj[4] = {0, 0, -1, 1};
-queue<pair<int, int>> q;
-vector<pair<int, int>> start_poses;
-bool OOB(int i, int j) {
-    if (i < 0 || i >= N) return true;
-    if (j < 0 || j >= M) return true;
+const int MAX = 1000, NUM_DIR = 4;
+int MATRIX[MAX][MAX], dist[MAX][MAX];
+int M, N, ans;
+// clock_wise
+int di[NUM_DIR] = {-1, 0, 1, 0}, dj[NUM_DIR] = {0, 1, 0, -1};
+queue<pair<int, int>> Q;
+
+bool OOB(int ci, int cj) {
+    if (ci < 0 || ci >= N)
+        return true;
+    if (cj < 0 || cj >= M)
+        return true;
     return false;
 }
 
-void solve() {
-    for (auto pos : start_poses) {
-        q.push(pos);
-        ripen_date[pos.first][pos.second] = 1;
-        tomato_cnt--;
-    }
-    if (tomato_cnt == 0) {
-        cout << tomato_cnt << endl;
-        return;
-    }
-    int cur_i, cur_j;
-    while (!q.empty()) {
-        tie(cur_i, cur_j) = q.front();
-        q.pop();
-        for (int k = 0; k < 4; k++) {
-            int ni, nj;
-            ni = cur_i + di[k];
-            nj = cur_j + dj[k];
-            if (OOB(ni, nj)) continue;
-            if (board[ni][nj] == -1) continue;
-            if (ripen_date[ni][nj] != 0) continue;
-            ripen_date[ni][nj] = ripen_date[cur_i][cur_j] + 1;
-            tomato_cnt--;
-            q.push({ni, nj});
-        }
-        
-    }
-    // 이미 다 익어 있었을 때
-    // 다 익지 못 했을 때를 체크해야 함
+int get_answer() {
+    int answer = 0;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            if (ripen_date[i][j] > ans) ans = ripen_date[i][j];
+            if (dist[i][j] == 0)
+                return -1;
+            if (dist[i][j] > answer)
+                answer = dist[i][j];
         }
     }
-    if (tomato_cnt > 0) {
-        cout << -1 << endl;
-        return;
-    }
+    return answer;
+}
 
-    cout << ans - 1 << endl;
+void solve() {
+
+    while (!Q.empty()) {
+        int ci, cj;
+        tie(ci, cj) = Q.front();
+        Q.pop();
+        for (int k = 0; k < NUM_DIR; k++) {
+            int ni, nj;
+            ni = ci + di[k];
+            nj = cj + dj[k];
+            if (OOB(ni, nj))
+                continue;
+            if (dist[ni][nj] == -1)
+                continue;
+            if (dist[ni][nj] >= 1)
+                continue;
+
+            dist[ni][nj] = dist[ci][cj] + 1;
+            Q.push({ni, nj});
+        }
+    }
+    ans = get_answer();
+    if (ans == -1)
+        cout << ans << endl;
+    else
+        cout << ans - 1 << endl;
 }
 
 void read_user_input() {
+
     cin >> M >> N;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
-            cin >> board[i][j];
-            if (board[i][j] == 1) start_poses.push_back({i, j});
-            if (board[i][j] != -1) tomato_cnt++;
+            cin >> MATRIX[i][j];
+            if (MATRIX[i][j] == 1) {
+                Q.push({i, j});
+                dist[i][j] = 1;
+            } else if (MATRIX[i][j] == -1) {
+                dist[i][j] = -1;
+            }
         }
     }
-
 }
+
 int main() {
-    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
     read_user_input();
     solve();
     return 0;
