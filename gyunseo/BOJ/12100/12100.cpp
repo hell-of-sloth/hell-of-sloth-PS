@@ -104,6 +104,7 @@ void solve() {
             tmp_case /= NUM_DIRS;
             // 방향 만큼 돌리고
             // tilt한다.
+            // 결국 4^5 모든 경우의 수를 탐색하게 된다
             tilt(cur_dir);
             // 다시 되돌려
         }
@@ -124,6 +125,7 @@ void read_user_input() {
         }
     }
 }
+
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
