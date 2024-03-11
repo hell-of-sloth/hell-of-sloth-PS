@@ -56,8 +56,6 @@ int main() {
     for (int i = 0; i < answer.size(); i++) {
         cout << answer[i] << '\n';
     }
-    
-
 
     return 0;
 }
