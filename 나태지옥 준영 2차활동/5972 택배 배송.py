@@ -40,10 +40,12 @@ def dijkstra(start):
     while queue:
         current_distance, current_node = heappop(queue)
         
+        # 현재 거리보다 더 긴 거리라면 무시
         if distance[current_node] < current_distance:
             continue
         
         for next_node, next_distance in array_graph[current_node]:
+            # 현재 노드를 거쳐서 다음 노드로 이동하는 거리가 더 짧은 경우
             if current_distance + next_distance < distance[next_node]:
                 distance[next_node] = current_distance + next_distance
                 heappush(queue, (distance[next_node], next_node))
