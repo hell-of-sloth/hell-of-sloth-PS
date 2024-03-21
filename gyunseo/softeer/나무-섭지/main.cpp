@@ -27,7 +27,7 @@ bool OOB(int i, int j) {
 
 void solve() {
     // 귀신들이 방문한다 먼저
-    for (const auto& pos : G_poses) {
+    for (const auto &pos : G_poses) {
         // 귀신 출발지의 거리를 1로 설정해 놓는다
         Q.push(pos);
         dist1[pos.F][pos.S] = 1;
