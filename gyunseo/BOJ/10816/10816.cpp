@@ -1,66 +1,65 @@
-#include <algorithm>
-#include <iostream>
-#define endl '\n'
-
+#include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = (int)1e7;
+#define endl '\n'
+#define watch(x) cout << (#x) << " is " << x << endl
+#define FOR(s, e) for(int _ = s; _ < e; _++)
+#define VI vector<int>
+
 int N, M;
-int arr[MAX];
+VI V;
 
-int getLowerIdx(int target) {
-    // s와 e가 같을 때 s값이 lower_bound
-    int s = 0, e = N, mid;
-    while (s < e) {
-        mid = (s + e) / 2;
-
-        if (target <= arr[mid]) {
-            e = mid;
-            continue;
-        }
-        if (target > arr[mid]) {
-            s = mid + 1;
-            continue;
-        }
-    }
-    return s;
+bool check_upper(const int i, const int k) {
+    if (V[i]>k) return true;
+    else return false;
 }
-int getUpperIdx(int target) {
-    int s = 0, e = N, mid;
-    // s와 e가 같을 때 s값이 upper_bound
-    while (s < e) {
-        mid = (s + e) / 2;
-        if (target < arr[mid]) {
-            e = mid;
-            continue;
-        }
-        if (target >= arr[mid]) {
-            s = mid + 1;
-            continue;
-        }
+bool check_lower(const int i, const int k) {
+    if (V[i] >= k) return true;
+    else return false;
+}
+int upper(int k) {
+    // v[i]는 k 초과인가?
+    // check(h, k)는 무조건 true
+    // check(l, k)는 무조건 false
+    int l = -1, h = V.size();
+    while (l + 1 < h) {
+        int m = (l + h) / 2;
+        if (check_upper(m, k)) h = m;
+        else l = m;
     }
-    return s;
+    return h;
 }
 
-void ReadUserInput() {
-    int n;
-    cin >> N;
-    for (int i = 0; i < N; i++) {
-        cin >> arr[i];
+int lower(int k) {
+    // V[i]는 k 이상인가?
+    // check(h, k)는 무조건 true
+    // check(l, k)는 무조건 false
+    int l = -1, h = V.size();
+    while (l + 1 < h) {
+        int m = (l + h) / 2;
+        // check(m, k) == check(h, k)이면 h = m
+        if (check_lower(m, k)) h = m;
+        else l = m;
     }
-    sort(arr, arr + N);
-    cin >> M;
-    for (int i = 0; i < M; i++) {
-        cin >> n;
-        cout << getUpperIdx(n) - getLowerIdx(n) << " ";
-    }
+    return h;
 }
 
 int main() {
-
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    ReadUserInput();
+    cin >> N;
+    FOR(0, N) {
+        int e;
+        cin >> e;
+        V.push_back(e);
+    }
+    sort(V.begin(), V.end());
+    cin >> M;
+    FOR(0, M) {
+        int query_num;
+        cin >> query_num;
+        cout << upper(query_num) - lower(query_num) << " ";
+    }cout << endl;
     return 0;
 }

@@ -1,55 +1,49 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#define endl '\n'
-
+#include <bits/stdc++.h>
 using namespace std;
-
-const int MAX = (int)1e5;
-
+#define endl '\n'
+#define watch(x) cout << (#x) << " is " << x << endl
+#define FOR(s, e) for (int i = s; i < e; i++)
+#define VI vector<int>
 int N, M;
-vector<int> arr;
+VI V;
 
-void Solve(int target) {
-  int s, e;
-  int mid;
-  s = 0;
-  e = N - 1;
-  while (s <= e) {
-    mid = (s + e) / 2;
-    if (arr[mid] == target) {
-      cout << 1 << endl;
-      return;
+bool num_exists(int num) {
+    int s = 0, e = V.size() - 1;
+    while (s <= e) {
+        int m = (s + e) / 2;
+        if (num == V[m]) {
+            return true;
+        }
+        if (num > V[m]) {
+            s = m + 1;
+            continue;
+        }
+        if (num < V[m]) {
+            e = m - 1;
+            continue;
+        }
     }
-    if (arr[mid] < target) {
-      s = mid + 1;
-      continue;
-    }
-    if (arr[mid] > target) {
-      e = mid - 1;
-      continue;
-    }
-  }
-  cout << 0 << endl;
+    return false;
 }
-
-void ReadUserInput() {
-  int target_num, new_num;
-  cin >> N; 
-  for (int i = 0; i < N; i++) {
-    cin >> new_num;
-    arr.push_back(new_num);
-  }
-  sort(arr.begin(), arr.end()); 
-  cin >> M;
-  for (int i = 0; i < M; i++) {
-    cin >> target_num;
-    Solve(target_num);
-  }
-}
-
 int main() {
-  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-  ReadUserInput();
-  return 0;
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cin >> N;
+    FOR(0, N) {
+        int e;
+        cin >> e;
+        V.push_back(e);
+    }
+    sort(V.begin(), V.end());
+    cin >> M;
+    FOR(0, M) {
+        int query_num;
+        cin >> query_num;
+        if (num_exists(query_num))
+            cout << 1 << endl;
+        else
+            cout << 0 << endl;
+    }
+    return 0;
 }
