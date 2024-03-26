@@ -1,3 +1,7 @@
+'''
+https://www.acmicpc.net/problem/9527 문제
+'''
+
 import sys
 
 # 이진수 변환 리스트 이용
