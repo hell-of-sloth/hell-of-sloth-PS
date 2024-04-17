@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 #define F first
 #define S second
 #define FOR(idx, s, e) for (int idx = (s); idx < (e); ++idx)
@@ -9,7 +10,7 @@
 #define PL pair<ll, ll>
 #define endl '\n'
 #define watch(x) cout << (#x) << " is " << x << endl
-#define ASSERT(exp, msg) assert((exp) &&(msg))
+#define ASSERT(exp, msg) assert((exp) && (msg))
 using namespace std;
 const int MAX = 200'000;
 using ll = long long;
@@ -32,5 +33,4 @@ int main() {
     }
     cout << "Yes" << endl;
     return 0;
-
 }

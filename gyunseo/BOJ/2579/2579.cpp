@@ -24,6 +24,7 @@ void read_user_input() {
         // cout << "step: " << steps[i] << endl;
     }
 }
+
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
