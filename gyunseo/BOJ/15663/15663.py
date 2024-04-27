@@ -15,9 +15,8 @@ def combination(cur_len):
         isUsed[i] = True
         seq.append(nums[i])
         combination(cur_len + 1)
-        isUsed[i] = False 
+        isUsed[i] = False
         seq.pop()
-
 
 
 if __name__ == "__main__":
@@ -34,4 +33,4 @@ if __name__ == "__main__":
         isUsed[i] = False
         seq.pop()
     for ans in sorted(ansSet):
-        print(' '.join(map(str, ans)))
+        print(" ".join(map(str, ans)))
