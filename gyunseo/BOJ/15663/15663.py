@@ -3,7 +3,7 @@ import sys
 input = sys.stdin.readline
 
 
-def combination(cur_len):
+def permutation(cur_len):
     # base condition 1
     if cur_len == M:
         ansSet.add(tuple(seq))
@@ -14,7 +14,7 @@ def combination(cur_len):
             continue
         isUsed[i] = True
         seq.append(nums[i])
-        combination(cur_len + 1)
+        permutation(cur_len + 1)
         isUsed[i] = False
         seq.pop()
 
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     for i in range(lenNums):
         isUsed[i] = True
         seq.append(nums[i])
-        combination(1)
+        permutation(1)
         isUsed[i] = False
         seq.pop()
     for ans in sorted(ansSet):
