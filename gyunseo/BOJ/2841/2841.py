@@ -18,6 +18,7 @@ if __name__ == "__main__":
         numPosJ = rightInsertPos - leftInsertPos 
         # check cache hit
         if numPosJ == 0:
+            # no cache hit, caching!
             updateAns += 1
         else:
             # cache hit!
