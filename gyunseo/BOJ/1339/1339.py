@@ -7,10 +7,8 @@ def calc():
     for s in stringList:
         len_s = len(s)
         num = 0
-        factor = 1
         for i in range(len_s - 1, -1, -1):
-            num += mappingTable[ord(s[i]) - ord('A')] * factor
-            factor *= 10
+            num += mappingTable[ord(s[i]) - ord('A')] * (10 ** (len_s - 1 - i))
         summation += num
     return summation
 
