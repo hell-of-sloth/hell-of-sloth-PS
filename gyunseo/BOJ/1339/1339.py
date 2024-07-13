@@ -45,10 +45,14 @@ if __name__ == "__main__":
     isUsed = [False for _ in range(10)]
     # alphabet0 -> digit0, ...
     mappingTable = [-1 for _ in range(26)]
-    
-    for i in range(10):
-        isUsed[i] = True
-        mappingTable[ord(alphabetList[0]) - ord('A')] = i
-        DFS(0, i)
-        isUsed[i] = False
+    permutationCandsGen = permutations(range(10), numAlphabets)
+    for permutationCand in permutationCandsGen:
+        for idx, digit in enumerate(permutationCand):
+            mappingTable[ord(alphabetList[idx]) - ord('A')] = digit
+        ans = max(ans, calc())
+    # for i in range(10):
+    #     isUsed[i] = True
+    #     mappingTable[ord(alphabetList[0]) - ord('A')] = i
+    #     DFS(0, i)
+    #     isUsed[i] = False
     print(ans)
