@@ -8,6 +8,7 @@ def debugBombSetTime():
         for j in range(C):
             print(bombSetTime[i][j], end = "")
         print()
+
 def OOB(i, j):
     if i < 0 or i >= R: return True
     if j < 0 or j >= C: return True
@@ -25,21 +26,23 @@ def bombsExplode():
     # print(f"현재 시각 {globalTimer}초 직후")
     # debugBombSetTime()
     # print("-"*20)
+    bomb_queue = deque()
     for i in range(R):
         for j in range(C):
             if board[i][j] == "O" and bombSetTime[i][j] == globalTimer - 3:
-                board[i][j] = "."
-                bombSetTime[i][j] = -1
+                bomb_queue.append((i, j))
 
-                for delta_i, delta_j in zip(deltaI, deltaJ):
-                    next_i, next_j = i + delta_i, j + delta_j
-                    if OOB(next_i, next_j): continue
-                    if bombSetTime[next_i][next_j] == -1: continue
-                    # 얘도 터져야 하는 폭탄이기 때문에
-                    if bombSetTime[next_i][next_j] == globalTimer - 3: continue
+    while bomb_queue:
+        i, j = bomb_queue.popleft()
+  
+        board[i][j] = "."
+        bombSetTime[i][j] = -1
 
-                    board[next_i][next_j] = "."
-                    bombSetTime[next_i][next_j] = -1
+        for delta_i, delta_j in zip(deltaI, deltaJ):
+            next_i, next_j = i + delta_i, j + delta_j
+            if OOB(next_i, next_j): continue
+            board[next_i][next_j] = "."
+            bombSetTime[next_i][next_j] = -1
 
 def debugBoard():
     for i in range(R):
