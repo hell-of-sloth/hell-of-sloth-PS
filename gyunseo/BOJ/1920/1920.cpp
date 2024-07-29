@@ -4,11 +4,11 @@
 
 #define fastio cin.tie(0)->sync_with_stdio(0)
 #define endl '\n'
-#define watch cout << (#x) << ": " << (x)
+#define watch(x) cout << (#x) << ": " << (x)
 
-#define REP(idx, end) for (auto(idx) = 0; (idx) < (end); ++(idx))
+#define REP(idx, end) for (auto idx = 0; idx < (end); ++idx)
 #define ALL(v) (v).begin(), (v).end()
-#define EACH(e, v) for (auto &(e) : (v))
+#define EACH(e, v) for (auto &e : (v))
 #define PB push_back
 using namespace std;
 
@@ -27,6 +27,18 @@ int lowerBound(const vector<int> &v, const int target) {
     return en;
 }
 
+int upperBound(const vector<int> &v, const int target) {
+    int st = -1, en = v.size(), mid;
+    while (st + 1 < en) {
+        mid = (st + en) / 2;
+        if (!(v[mid] > target))
+            st = mid;
+        else
+            en = mid;
+    }
+    return en;
+}
+
 bool cmp(const int &a, const int &b) { return a < b; }
 int main() {
     fastio;
@@ -37,14 +49,21 @@ int main() {
         numVec.PB(e);
     }
     sort(ALL(numVec), cmp);
+    // EACH(e, numVec) {
+    // watch(e);
+    // cout << " ";
+    //}
+    cin >> M;
     REP(i, M) {
         int query;
-        int bisectLeftIdx = lowerBound(numVec, query);
-        if (bisectLeftIdx < 0 || bisectLeftIdx >= N) {
+        cin >> query;
+        int bisectLeftIdx = lowerBound(numVec, query),
+            bisectRightIdx = upperBound(numVec, query);
+        int numOfElements = bisectRightIdx - bisectLeftIdx;
+        if (numOfElements)
+            cout << 1 << endl;
+        else
             cout << 0 << endl;
-            continue;
-        }
-        cout << 1 << endl;
     }
     return 0;
 }
