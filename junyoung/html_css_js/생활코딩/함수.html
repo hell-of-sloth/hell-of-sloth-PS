@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>함수</title>
+    </head>
+    <body>
+        <h1>Function</h1>
+        <ul>
+            <script>
+                function two(){
+                    document.write('<li>2-1</li>');
+                    document.write('<li>2-2</li>');
+                }
+                document.write('<li>1</li>');
+                two();
+                two();
+                document.write('<li>3</li>');
+            </script>
+        </ul>
+        <h2>Parameter & Argument</h2>
+        <script>
+            function Sum(a, b){
+                document.write(a+b+'<br>');
+            }
+            function SumColorRed(a, b){
+                document.write('<div style="color:red">'+ (a+b) +'</div><br>');
+            }
+            Sum(1, 2);
+            SumColorRed(1, 2);
+        </script>
+        <h2>Return</h2>
+        <script>
+            function Sum2(a, b){
+                return a+b;
+            }
+            document.write(Sum2(1, 2)+'<br>');
+            document.write('<div style="color:red">'+Sum2(2, 4)+'</div><br>');
+            document.write('<div style="font-size:3rem;">'+Sum2(2, 4)+'</div><br>');
+        </script>
+    </body>
+</html>
