@@ -1,4 +1,5 @@
-# N = 300,000 / M = 1000000 MlogM ?
+# N = 300,000 / M = 1000000, MlogM + M
+# 체감 난이도 2/10, 다익스트라 쉬운 문제
 
 import sys
 from heapq import heappop, heappush
@@ -34,11 +35,13 @@ def djik(start):
     return dist
 
 result = djik(X)
-ans = -1
+answer = []
 for i in range(1, N+1):
     if result[i] == K:
-        ans = i
-        sys.stdout.write(str(ans) + '\n')
-        
-if ans == -1:
+        answer.append(i)
+
+if len(answer) == 0:
     print(-1)
+else:
+    for i in answer:
+        sys.stdout.write(str(i) + '\n')
