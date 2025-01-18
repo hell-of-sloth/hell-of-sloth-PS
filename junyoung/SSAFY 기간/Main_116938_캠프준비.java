@@ -7,7 +7,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Main_116938_캠프준비 {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    // 입력을 받기 위한 BufferedReader, 입력 시간을 줄여줌
 	static StringTokenizer st;                                                          // 한 줄 입력을 받아서 공백으로 나눠줌
 	static int answer = 0;                                      // 정답을 저장할 변수를 전역으로 지정                  

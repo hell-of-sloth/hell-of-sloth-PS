@@ -5,7 +5,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Main_6593_상범빌딩 {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    // 입력을 받기 위한 BufferedReader, 입력 시간을 줄여줌
     static StringTokenizer st;                                                          // 한 줄 입력을 받아서 공백으로 나눠줌
     public static void main(String[] args) throws Exception {
