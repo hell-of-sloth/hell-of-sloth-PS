@@ -1,41 +1,40 @@
-#include <algorithm>
-#include <cassert>
 #include <iostream>
 #include <vector>
-#define endl '\n'
-#define ASSERT(exp, msg) assert(exp &&msg)
-#define WATCH(X) cout << (#X) << " is " << X << endl
-using namespace std;
-// 1 ≤ N ≤ 1,000,000
-//-10^9 ≤ Xi ≤ 10^9
+#include <algorithm>
+#include <set>
 
-const int MAX = (int)1e6;
-int N;
-vector<int> X_origin, X;
+#define endl '\n'
+#define fastio cin.tie(0)->sync_with_stdio(0)
+#define REP(x) for (ll idx = 0; idx < (x); ++idx)
+
+using namespace std;
+using ll = long long;
+using VL = vector<ll>;
+
+ll gN;
+VL v;
+set<ll> s;
+
+void readInput() {
+    cin >> gN;
+    REP(gN) {
+        ll e;
+        cin >> e;
+        v.push_back(e);
+        s.insert(e);
+    }
+}
 
 void solve() {
-    sort(X.begin(), X.end());
-    X.erase(unique(X.begin(), X.end()), X.end());
-    for (auto x : X_origin) {
-        cout << lower_bound(X.begin(), X.end(), x) - X.begin() << " ";
+    VL sortedSet(s.begin(), s.end());
+    for (const auto &x : v) {
+        cout << lower_bound(sortedSet.begin(), sortedSet.end(), x) - sortedSet.begin() << " ";
     }
-    cout << endl;
 }
 
-void read_user_input() {
-    cin >> N;
-    for (int i = 0; i < N; i++) {
-        int x;
-        cin >> x;
-        X_origin.push_back(x);
-        X.push_back(x);
-    }
-}
 int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    read_user_input();
+    fastio;
+    readInput();
     solve();
     return 0;
 }
