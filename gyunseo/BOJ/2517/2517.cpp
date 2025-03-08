@@ -31,7 +31,7 @@ ll query(ll root, ll ts, ll te, ll qs, ll qe) {
 
 void upd(ll root, ll s, ll e, ll ii, ll val) {
     if (ii < s or ii > e) return;
-    if (s == e) {
+    if (s == e and s==ii) {
         segTree[root] = val;
         return;
     }
