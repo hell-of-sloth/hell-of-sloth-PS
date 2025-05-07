@@ -40,10 +40,11 @@ struct UnionFind {
     }
 };
 
+
 ll N, M;
 vector<TL> arr;
 
-bool compare(TL &lhs, TL &rhs) {
+bool Compare(const TL &lhs, const TL &rhs) {
     return get<2>(lhs) < get<2>(rhs);
 }
 
@@ -60,7 +61,7 @@ void readInput() {
         cin >> u >> v >> cost;
         arr.push_back(make_tuple(u,v,cost));
     }
-    sort(arr.begin(), arr.end(), compare);
+    sort(arr.begin(), arr.end(), Compare);
     // debugVector();
 }
 
